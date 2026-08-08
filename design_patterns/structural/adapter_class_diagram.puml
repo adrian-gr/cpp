@@ -1,0 +1,26 @@
+@startuml
+
+interface PaymentGateway {
+    +charge(amount: double)
+}
+
+class LegacyBillingSystem {
+    +makePaymentInCents(cents: int, account: string)
+}
+
+class BillingAdapter {
+    -billing_: LegacyBillingSystem
+    -account_: string
+    +BillingAdapter(billing: LegacyBillingSystem, account: string)
+    +charge(amount: double)
+}
+
+class Client {
+    +checkout(gateway: PaymentGateway)
+}
+
+BillingAdapter ..|> PaymentGateway
+BillingAdapter --> LegacyBillingSystem : delegates to
+Client --> PaymentGateway : uses
+
+@enduml

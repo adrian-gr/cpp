@@ -8,6 +8,7 @@ This repository is a learning workspace for exploring C++ language features acro
 - `cpp_14/` - examples and exercises for C++14 features.
 - `cpp_17/` - examples and exercises for C++17 features.
 - `cpp_20/` - examples and exercises for C++20 features.
+- `design_patterns/` - examples grouped into creational, structural, and behavioral patterns.
 
 ## Purpose
 

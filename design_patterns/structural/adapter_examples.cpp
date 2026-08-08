@@ -1,8 +1,9 @@
 // Adapter pattern example
-// Compile with: g++ -std=c++11 -O2 design_patterns/structural/adapter_examples.cpp -o bin/adapter_example && ./bin/adapter_example
+// Compile with: g++ -std=c++20 -O2 design_patterns/structural/adapter_examples.cpp -o bin/adapter_example && ./bin/adapter_example
 
 #include <iostream>
 #include <string>
+#include <utility>
 
 // Description:
 // Adapter converts one interface into another interface expected by a client.
@@ -25,7 +26,7 @@
 
 class PaymentGateway {
 public:
-    virtual ~PaymentGateway() {}
+    virtual ~PaymentGateway() = default;
     virtual void charge(double amount) = 0;
 };
 
@@ -37,7 +38,7 @@ public:
     }
 };
 
-class BillingAdapter : public PaymentGateway {
+class BillingAdapter final : public PaymentGateway {
 public:
     BillingAdapter(LegacyBillingSystem& billing, std::string account)
         : billing_(billing), account_(std::move(account)) {}

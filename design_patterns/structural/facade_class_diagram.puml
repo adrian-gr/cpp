@@ -1,0 +1,42 @@
+@startuml
+
+class Amplifier {
+    +on()
+    +setVolume(volume: int)
+    +off()
+}
+
+class Projector {
+    +on()
+    +wideScreenMode()
+    +off()
+}
+
+class StreamingPlayer {
+    +on()
+    +play(movie: string)
+    +stop()
+    +off()
+}
+
+class HomeTheaterFacade {
+    -amplifier_: Amplifier
+    -projector_: Projector
+    -player_: StreamingPlayer
+    +HomeTheaterFacade(amplifier: Amplifier, projector: Projector, player: StreamingPlayer)
+    +watchMovie(movie: string)
+    +endMovie()
+}
+
+HomeTheaterFacade --> Amplifier : coordinates
+HomeTheaterFacade --> Projector : coordinates
+HomeTheaterFacade --> StreamingPlayer : coordinates
+
+class Client {
+    +watchMovie(movie: string)
+    +endMovie()
+}
+
+Client --> HomeTheaterFacade : uses
+
+@enduml

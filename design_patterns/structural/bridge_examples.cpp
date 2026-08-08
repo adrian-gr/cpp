@@ -1,9 +1,9 @@
 // Bridge pattern example
-// Compile with: g++ -std=c++11 -O2 design_patterns/structural/bridge_examples.cpp -o bin/bridge_example && ./bin/bridge_example
+// Compile with: g++ -std=c++20 -O2 design_patterns/structural/bridge_examples.cpp -o bin/bridge_example && ./bin/bridge_example
 
 #include <iostream>
 #include <memory>
-#include <string>
+#include <utility>
 
 // Description:
 // Bridge separates an abstraction from its implementation so both can vary independently.
@@ -27,18 +27,18 @@
 
 class Renderer {
 public:
-    virtual ~Renderer() {}
+    virtual ~Renderer() = default;
     virtual void drawCircle(int radius) = 0;
 };
 
-class VectorRenderer : public Renderer {
+class VectorRenderer final : public Renderer {
 public:
     void drawCircle(int radius) override {
         std::cout << "vector circle with radius " << radius << "\n";
     }
 };
 
-class RasterRenderer : public Renderer {
+class RasterRenderer final : public Renderer {
 public:
     void drawCircle(int radius) override {
         std::cout << "raster circle with radius " << radius << "\n";
@@ -50,7 +50,7 @@ public:
     explicit Shape(std::unique_ptr<Renderer> renderer)
         : renderer_(std::move(renderer)) {}
 
-    virtual ~Shape() {}
+    virtual ~Shape() = default;
     virtual void draw() const = 0;
 
 protected:
@@ -62,7 +62,7 @@ private:
     std::unique_ptr<Renderer> renderer_;
 };
 
-class Circle : public Shape {
+class Circle final : public Shape {
 public:
     Circle(int radius, std::unique_ptr<Renderer> renderer)
         : Shape(std::move(renderer)), radius_(radius) {}
@@ -78,8 +78,8 @@ private:
 int main() {
     std::cout << "Bridge pattern example:\n";
 
-    Circle vectorCircle(5, std::unique_ptr<Renderer>(new VectorRenderer));
-    Circle rasterCircle(5, std::unique_ptr<Renderer>(new RasterRenderer));
+    Circle vectorCircle(5, std::make_unique<VectorRenderer>());
+    Circle rasterCircle(5, std::make_unique<RasterRenderer>());
     vectorCircle.draw();
     rasterCircle.draw();
 

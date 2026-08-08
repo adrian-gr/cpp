@@ -1,0 +1,46 @@
+@startuml FactoryMethod
+
+interface Notifier {
+    +send(message: string) : void
+}
+
+class EmailNotifier {
+    +send(message: string) : void
+}
+
+class SmsNotifier {
+    +send(message: string) : void
+}
+
+abstract class NotifierCreator {
+    +notify(message: string) : void
+    #{abstract} createNotifier() : unique_ptr<Notifier>
+}
+
+class EmailNotifierCreator {
+    #createNotifier() : unique_ptr<Notifier>
+}
+
+class SmsNotifierCreator {
+    #createNotifier() : unique_ptr<Notifier>
+}
+
+Notifier <|.. EmailNotifier
+Notifier <|.. SmsNotifier
+
+NotifierCreator <|-- EmailNotifierCreator
+NotifierCreator <|-- SmsNotifierCreator
+
+NotifierCreator ..> Notifier : creates
+EmailNotifierCreator ..> EmailNotifier : creates
+SmsNotifierCreator ..> SmsNotifier : creates
+
+note right of NotifierCreator
+  Factory Method:
+  notify() is the template
+  operation; createNotifier()
+  is overridden by subclasses
+  to pick the concrete product.
+end note
+
+@enduml

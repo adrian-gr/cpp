@@ -1,6 +1,10 @@
 #include <iostream>
+// Reference: https://en.cppreference.com/w/cpp/language/constexpr
 #include <type_traits>
+#include <vector>
 
+// Problem solved: distinguishes functions that may run at compile time from those required to do so.
+// Before C++20: constexpr could not enforce compile-time calls as directly as consteval does.
 // Tips for C++20 constexpr usage:
 // - Use consteval when a function must always be evaluated at compile time.
 // - Use std::is_constant_evaluated when compile-time and runtime paths need different behavior.
@@ -27,6 +31,16 @@ constexpr int factorial(int value) {
     return result;
 }
 
+constexpr int countPositive(const std::vector<int>& values) {
+    int count = 0;
+    for (int value : values) {
+        if (value > 0) {
+            ++count;
+        }
+    }
+    return count;
+}
+
 int main() {
     std::cout << "C++20 constexpr examples:\n";
 
@@ -46,6 +60,12 @@ int main() {
     constexpr int factorialResult = factorial(5);
     static_assert(factorialResult == 120, "factorial should be evaluated at compile time");
     std::cout << "factorial(5) = " << factorialResult << "\n";
+
+    // 4. C++20 permits constexpr evaluation of vector operations and dynamic storage.
+    constexpr int positiveCount = countPositive(std::vector<int>{-1, 2, 3, -4});
+    static_assert(positiveCount == 2,
+                  "vector processing should be evaluated at compile time");
+    std::cout << "positive count = " << positiveCount << "\n";
 
     return 0;
 }

@@ -1,8 +1,12 @@
 #include <concepts>
+// Reference: https://en.cppreference.com/w/cpp/language/lambda
 #include <iostream>
 #include <ranges>
 #include <string>
 #include <vector>
+
+// Problem solved: gives lambdas explicit template parameters and constraints at the call site.
+// Before C++20: generic lambdas relied on abbreviated auto parameters and separate constraints.
 
 int main() {
     std::cout << "C++20 Lambda Feature Examples\n";

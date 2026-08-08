@@ -1,4 +1,5 @@
 // C++11 mutex examples
+// Reference: https://en.cppreference.com/w/cpp/thread/mutex
 // Compile with: g++ -std=c++11 -O2 -pthread cpp_11/mutex_examples.cpp -o bin/cpp11_mutex && ./bin/cpp11_mutex
 
 #include <iostream>
@@ -6,12 +7,15 @@
 #include <thread>
 #include <vector>
 
+// Problem solved: protects shared mutable state with portable RAII-based synchronization.
+// Before C++11: code used platform-specific locks and manual lock/unlock conventions.
 // Tips for C++11 mutex usage:
 // - Protect shared mutable state with a mutex when operations are not atomic.
 // - Prefer RAII wrappers such as lock_guard and unique_lock over manual lock/unlock.
 // - Keep the critical section small so other threads wait for as little time as possible.
 // - Always acquire multiple mutexes in a consistent order or use std::lock to avoid deadlock.
 // - A mutex protects the data only when every access follows the same locking policy.
+// - shared_timed_mutex was introduced in C++14; C++11 requires a custom timed reader-writer lock.
 
 class Counter {
 public:

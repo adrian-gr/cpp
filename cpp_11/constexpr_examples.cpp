@@ -1,11 +1,15 @@
 #include <iostream>
 
+// Reference: https://en.cppreference.com/w/cpp/language/constexpr
+// Problem solved: moves suitable calculations and constants from runtime into compilation.
+// Before C++11: code relied on macros, enum tricks, or template metaprogramming for this work.
 // Tips for C++11 constexpr usage:
 // - Use constexpr for pure functions and values that can be computed at compile time.
 // - C++11 constexpr function bodies must be a single return statement.
 // - Recursive constexpr functions are useful for simple compile-time calculations.
 // - Use static_assert to verify compile-time results and document expectations.
 // - Avoid forcing complex, stateful, or I/O-bound logic into constexpr functions.
+// - C++11 does not have relaxed constexpr bodies; local variables and loops require recursion or helpers.
 
 constexpr int square(int value) {
     return value * value;
@@ -48,6 +52,9 @@ int main() {
                   "Point calculation should be evaluated at compile time");
     std::cout << "point squared distance = "
               << point.squaredDistanceFromOrigin() << "\n";
+
+    // C++11 limitation: a constexpr function body must remain a single return statement.
+    // The recursive factorial above is the usual workaround for multi-step calculations.
 
     return 0;
 }

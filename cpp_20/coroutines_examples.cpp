@@ -1,4 +1,5 @@
 // C++20 coroutine examples
+// Reference: https://en.cppreference.com/w/cpp/language/coroutines
 // Compile with: g++ -std=c++20 -O2 -Wall -Wextra cpp_20/coroutines_examples.cpp -o bin/cpp20_coroutines && ./bin/cpp20_coroutines
 
 #include <coroutine>
@@ -7,6 +8,8 @@
 #include <optional>
 #include <utility>
 
+// Problem solved: suspends and resumes functions without hand-written state machines or callbacks.
+// Before C++20: generators and async flows required callbacks, futures, or manually stored state.
 // Tips for C++20 coroutine usage:
 // - Coroutines suspend and resume execution; they are not automatically threads.
 // - Use co_yield for generators, co_await for asynchronous operations, and co_return for results.

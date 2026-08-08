@@ -1,10 +1,13 @@
 // C++17 decltype examples
+// Reference: https://en.cppreference.com/w/cpp/language/decltype
 // Compile with: g++ -std=c++17 -O2 cpp_17/decltype_examples.cpp -o bin/cpp17_decltype && ./bin/cpp17_decltype
 
 #include <iostream>
 #include <tuple>
 #include <type_traits>
 
+// Problem solved: combines exact type deduction with structured bindings and generic returns.
+// Before C++17: generic code needed more explicit tuple access and type plumbing.
 // Tips for C++17 decltype usage:
 // - Use decltype with structured bindings to inspect the binding's declared type.
 // - Remember that decltype(name) for a structured binding follows the referenced element type.

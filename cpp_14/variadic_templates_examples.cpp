@@ -1,9 +1,12 @@
 // C++14 variadic template examples
+// Reference: https://en.cppreference.com/w/cpp/language/parameter_pack
 // Compile with: g++ -std=c++14 -O2 cpp_14/variadic_templates_examples.cpp -o bin/cpp14_variadic && ./bin/cpp14_variadic
 
 #include <iostream>
 #include <utility>
 
+// Problem solved: forwards an arbitrary pack while preserving each argument's value category.
+// Before C++14: forwarding wrappers needed repetitive overloads and explicit type handling.
 // Tips for C++14 variadic template usage:
 // - Forwarding references preserve whether each argument is an lvalue or rvalue.
 // - Use std::forward when passing a parameter pack to another function.

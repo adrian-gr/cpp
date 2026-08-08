@@ -1,10 +1,13 @@
 // C++20 three-way comparison examples
+// Reference: https://en.cppreference.com/w/cpp/language/operator_comparison
 // Compile with: g++ -std=c++20 -O2 -Wall -Wextra cpp_20/three_way_comparison_examples.cpp -o bin/cpp20_three_way && ./bin/cpp20_three_way
 
 #include <compare>
 #include <cmath>
 #include <iostream>
 
+// Problem solved: defines ordering once and generates consistent equality and relational operators.
+// Before C++20: types needed several comparison overloads with duplicated ordering logic.
 // Tips for C++20 three-way comparison usage:
 // - Use <=> to express ordering once and let the compiler generate == and relational operators.
 // - A defaulted operator<=> compares members in declaration order.

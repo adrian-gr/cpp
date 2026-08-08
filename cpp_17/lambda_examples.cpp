@@ -1,7 +1,11 @@
 #include <algorithm>
+// Reference: https://en.cppreference.com/w/cpp/language/lambda
 #include <iostream>
 #include <iterator>
 #include <vector>
+
+// Problem solved: supports compile-time evaluation and richer generic callable behavior.
+// Before C++17: constexpr lambdas and type-dependent branches required helper functions or functors.
 
 int main() {
     std::cout << "C++17 Lambda Feature Examples\n";

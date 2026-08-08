@@ -1,10 +1,13 @@
 // C++11 thread examples
+// Reference: https://en.cppreference.com/w/cpp/thread
 // Compile with: g++ -std=c++11 -O2 -pthread cpp_11/thread_examples.cpp -o bin/cpp11_thread && ./bin/cpp11_thread
 
 #include <iostream>
 #include <thread>
 #include <vector>
 
+// Problem solved: provides a portable standard API for starting and joining operating-system threads.
+// Before C++11: code called platform-specific pthread, Win32, or other thread APIs directly.
 // Tips for C++11 thread usage:
 // - Every joinable thread must be joined or detached before its destructor runs.
 // - Prefer join when the created work must finish before the current scope exits.

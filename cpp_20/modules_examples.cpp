@@ -1,10 +1,14 @@
 // C++20 module consumer example
+// Reference: https://en.cppreference.com/w/cpp/language/modules
 // Build with GCC 13:
 //   g++ -std=c++20 -fmodules-ts -c cpp_20/math_module.cpp -o bin/math_module.o
 //   g++ -std=c++20 -fmodules-ts cpp_20/modules_examples.cpp bin/math_module.o -o bin/cpp20_modules
 //   ./bin/cpp20_modules
 
 #include <iostream>
+
+// Problem solved: imports a compiled interface without preprocessing and copying a header's contents.
+// Before C++20: consumers included headers, increasing coupling and repeated compilation work.
 
 import math_module;
 

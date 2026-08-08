@@ -1,4 +1,5 @@
 // C++20 thread examples
+// Reference: https://en.cppreference.com/w/cpp/thread
 // Compile with: g++ -std=c++20 -O2 -pthread cpp_20/thread_examples.cpp -o bin/cpp20_thread && ./bin/cpp20_thread
 
 #include <chrono>
@@ -6,6 +7,8 @@
 #include <stop_token>
 #include <thread>
 
+// Problem solved: provides automatically joining threads with cooperative cancellation.
+// Before C++20: code manually joined std::thread and invented stop flags or cancellation protocols.
 // Tips for C++20 thread usage:
 // - Prefer std::jthread when a thread should be joined automatically on scope exit.
 // - Use stop_token for cooperative cancellation; it does not forcibly terminate a thread.

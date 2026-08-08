@@ -1,9 +1,12 @@
 // C++11 noexcept examples
+// Reference: https://en.cppreference.com/w/cpp/language/noexcept_spec
 // Compile with: g++ -std=c++11 -O2 cpp_11/noexcept_examples.cpp -o bin/cpp11_noexcept && ./bin/cpp11_noexcept
 
 #include <iostream>
 #include <utility>
 
+// Problem solved: declares non-throwing guarantees that generic code and the optimizer can inspect.
+// Before C++11: code used deprecated dynamic exception specifications or undocumented assumptions.
 // Tips for C++11 noexcept usage:
 // - Mark a function noexcept when it is guaranteed not to throw exceptions.
 // - Use noexcept on move constructors and move operations when they cannot throw.

@@ -1,15 +1,21 @@
 // C++20 mutex examples
+// Reference: https://en.cppreference.com/w/cpp/thread/shared_timed_mutex
 // Compile with: g++ -std=c++20 -O2 -pthread cpp_20/mutex_examples.cpp -o bin/cpp20_mutex && ./bin/cpp20_mutex
 
+#include <chrono>
 #include <iostream>
 #include <mutex>
+#include <shared_mutex>
 #include <thread>
 
+// Problem solved: locks multiple mutexes with RAII while avoiding common lock-order deadlocks.
+// Before C++20: code used std::lock plus separate wrappers or manually coordinated lock ordering.
 // Tips for C++20 mutex usage:
 // - Use scoped_lock to lock multiple mutexes with deadlock avoidance.
 // - scoped_lock is the preferred RAII wrapper when all mutexes should be held for a scope.
 // - Keep lock ownership and the protected data close together in the design.
 // - Use a condition_variable when a thread must wait for a state change, rather than polling.
+// - Use shared_timed_mutex when shared or exclusive locking needs a timeout.
 
 class Pair {
 public:
@@ -49,6 +55,19 @@ int main() {
         std::scoped_lock lock(mutex);
         std::cout << "scoped_lock protects this scope\n";
     }
+
+    // shared_timed_mutex supports time-bounded reader and writer acquisition.
+    std::shared_timed_mutex timedMutex;
+    std::shared_lock<std::shared_timed_mutex> reader(timedMutex, std::defer_lock);
+    bool readerAcquired = reader.try_lock_for(std::chrono::milliseconds(10));
+    std::cout << "timed reader acquired = " << readerAcquired << "\n";
+    if (readerAcquired) {
+        reader.unlock();
+    }
+
+    std::unique_lock<std::shared_timed_mutex> writer(timedMutex, std::defer_lock);
+    bool writerAcquired = writer.try_lock_for(std::chrono::milliseconds(10));
+    std::cout << "timed writer acquired = " << writerAcquired << "\n";
 
     return 0;
 }

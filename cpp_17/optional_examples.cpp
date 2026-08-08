@@ -1,10 +1,13 @@
 // C++17 std::optional examples
+// Reference: https://en.cppreference.com/w/cpp/utility/optional
 // Compile with: g++ -std=c++17 -O2 cpp_17/optional_examples.cpp -o bin/cpp17_optional && ./bin/cpp17_optional
 
 #include <iostream>
 #include <optional>
 #include <string>
 
+// Problem solved: represents a value that may be absent without using sentinel values.
+// Before C++17: APIs used magic values, null pointers, output parameters, or exceptions.
 // Tips for std::optional usage:
 // - Use std::optional when a function may legitimately have no result.
 // - Prefer optional over sentinel values such as -1, empty strings, or null pointers.

@@ -1,7 +1,11 @@
 #include <algorithm>
+// Reference: https://en.cppreference.com/w/cpp/language/lambda
 #include <iostream>
 #include <string>
 #include <vector>
+
+// Problem solved: makes local generic and stateful operations concise and reusable.
+// Before C++14: generic behavior required function templates or manually typed functors.
 
 int main() {
     std::cout << "C++14 Lambda Feature Examples\n";

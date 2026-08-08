@@ -1,9 +1,12 @@
 #include <any>
+// Reference: https://en.cppreference.com/w/cpp/utility/any
 #include <iostream>
 #include <string>
 #include <typeinfo>
 #include <vector>
 
+// Problem solved: stores one value of an otherwise unknown type behind a type-safe interface.
+// Before C++17: code used void pointers, tagged unions, or unsafe manual type-erasure utilities.
 // Tips for std::any usage:
 // - Use std::any when you need a type-safe container for heterogeneous values
 //   and the exact types are not known at compile time.

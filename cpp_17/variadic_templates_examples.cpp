@@ -1,9 +1,12 @@
 // C++17 variadic template examples
+// Reference: https://en.cppreference.com/w/cpp/language/fold
 // Compile with: g++ -std=c++17 -O2 cpp_17/variadic_templates_examples.cpp -o bin/cpp17_variadic && ./bin/cpp17_variadic
 
 #include <iostream>
 #include <string>
 
+// Problem solved: processes parameter packs without recursive helper overloads.
+// Before C++17: variadic code needed a base case and recursive expansion functions.
 // Tips for C++17 variadic template usage:
 // - Fold expressions replace much of the recursive boilerplate used in C++11.
 // - Unary folds are useful when combining every argument with one operation.

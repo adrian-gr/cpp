@@ -1,4 +1,5 @@
 // C++20 decltype examples
+// Reference: https://en.cppreference.com/w/cpp/language/decltype
 // Compile with: g++ -std=c++20 -O2 cpp_20/decltype_examples.cpp -o bin/cpp20_decltype && ./bin/cpp20_decltype
 
 #include <concepts>
@@ -6,6 +7,8 @@
 #include <type_traits>
 #include <utility>
 
+// Problem solved: combines exact expression types with readable constrained generic interfaces.
+// Before C++20: code used SFINAE and verbose detection traits to validate expressions.
 // Tips for C++20 decltype usage:
 // - Use decltype in concepts and requires expressions to test whether an expression is valid.
 // - Prefer named concepts when the same expression requirement is used more than once.

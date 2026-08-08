@@ -1,9 +1,12 @@
 // C++14 decltype examples
+// Reference: https://en.cppreference.com/w/cpp/language/decltype
 // Compile with: g++ -std=c++14 -O2 cpp_14/decltype_examples.cpp -o bin/cpp14_decltype && ./bin/cpp14_decltype
 
 #include <iostream>
 #include <type_traits>
 
+// Problem solved: preserves exact return types, including references, in generic helpers.
+// Before C++14: code used verbose trailing return types when decltype(auto) was unavailable.
 // Tips for C++14 decltype usage:
 // - Use decltype(auto) when a function should preserve the exact type of its return expression.
 // - decltype(auto) can preserve references, unlike plain auto return type deduction.

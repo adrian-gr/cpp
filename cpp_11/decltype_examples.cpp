@@ -1,10 +1,13 @@
 // C++11 decltype examples
+// Reference: https://en.cppreference.com/w/cpp/language/decltype
 // Compile with: g++ -std=c++11 -O2 cpp_11/decltype_examples.cpp -o bin/cpp11_decltype && ./bin/cpp11_decltype
 
 #include <iostream>
 #include <type_traits>
 #include <utility>
 
+// Problem solved: lets generic code preserve the exact type, reference, and constness of expressions.
+// Before C++11: code needed overload sets, traits, or manually repeated return-type declarations.
 // Tips for decltype usage:
 // - Use decltype when a declaration should preserve the exact type of an expression.
 // - Remember that decltype(variable) gives the declared type, while decltype((variable))

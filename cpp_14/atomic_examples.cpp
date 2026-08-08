@@ -1,14 +1,19 @@
 // C++14 atomic examples
+// Reference: https://en.cppreference.com/w/cpp/atomic
 // Compile with: g++ -std=c++14 -O2 -pthread cpp_14/atomic_examples.cpp -o bin/cpp14_atomic && ./bin/cpp14_atomic
 
 #include <atomic>
 #include <iostream>
 
+// Problem solved: expresses visibility and ordering rules for shared atomic state.
+// Before C++11: memory ordering depended on compiler barriers, volatile, or platform intrinsics.
 // Tips for C++14 atomic usage:
 // - Use atomic_flag for the simplest guaranteed lock-free atomic flag.
 // - Use acquire and release ordering when publishing data between threads.
 // - Relaxed ordering is suitable for counters when no other synchronization is required.
 // - Memory ordering controls visibility and ordering, not whether an operation is atomic.
+// - Use seq_cst when the simplest global ordering is more valuable than weaker ordering.
+// - Use acq_rel for read-modify-write operations that need both acquire and release behavior.
 // - Prefer a mutex when the operation involves multiple related pieces of state.
 
 int main() {
@@ -35,6 +40,16 @@ int main() {
     if (ready.load(std::memory_order_acquire)) {
         std::cout << "published value = " << publishedValue << "\n";
     }
+
+    // 4. Sequential consistency is the default ordering for atomic operations.
+    std::atomic<int> sequence(0);
+    sequence.store(1, std::memory_order_seq_cst);
+    std::cout << "seq_cst value = " << sequence.load(std::memory_order_seq_cst) << "\n";
+
+    // 5. Acquire-release applies both sides of a read-modify-write operation.
+    int previous = sequence.fetch_add(1, std::memory_order_acq_rel);
+    std::cout << "acq_rel previous = " << previous
+              << ", current = " << sequence.load() << "\n";
 
     return 0;
 }

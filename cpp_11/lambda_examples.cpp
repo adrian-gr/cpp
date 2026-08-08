@@ -1,8 +1,12 @@
 #include <algorithm>
+// Reference: https://en.cppreference.com/w/cpp/language/lambda
 #include <functional>
 #include <iostream>
 #include <string>
 #include <vector>
+
+// Problem solved: defines short local callables with captures without naming a separate functor type.
+// Before C++11: code used verbose function objects, free functions, or function pointers.
 
 int main() {
     std::cout << "C++11 Lambda Examples\n";

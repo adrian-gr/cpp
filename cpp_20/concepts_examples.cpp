@@ -1,4 +1,5 @@
 // C++20 concepts examples
+// Reference: https://en.cppreference.com/w/cpp/language/constraints
 // Compile with: g++ -std=c++20 -O2 cpp_20/concepts_examples.cpp -o bin/cpp20_concepts && ./bin/cpp20_concepts
 
 #include <concepts>
@@ -6,6 +7,8 @@
 #include <string>
 #include <type_traits>
 
+// Problem solved: states template requirements directly and produces clearer constraint diagnostics.
+// Before C++20: code used SFINAE, enable_if, detection idioms, or accepted invalid substitutions.
 // Tips for C++20 concepts usage:
 // - Use concepts to express template requirements in readable, reusable names.
 // - Prefer a named concept when a requirement appears in multiple declarations.

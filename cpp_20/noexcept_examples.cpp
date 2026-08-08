@@ -1,10 +1,13 @@
 // C++20 noexcept examples
+// Reference: https://en.cppreference.com/w/cpp/language/noexcept_spec
 // Compile with: g++ -std=c++20 -O2 cpp_20/noexcept_examples.cpp -o bin/cpp20_noexcept && ./bin/cpp20_noexcept
 
 #include <concepts>
 #include <iostream>
 #include <type_traits>
 
+// Problem solved: combines non-throwing callable requirements with readable named constraints.
+// Before C++20: code used nested enable_if and duplicated noexcept conditions.
 // Tips for C++20 noexcept usage:
 // - Combine concepts with noexcept when both type validity and exception safety matter.
 // - Use a requires expression to constrain a callable to a non-throwing operation.

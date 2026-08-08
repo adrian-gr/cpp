@@ -1,4 +1,5 @@
 // C++14 thread examples
+// Reference: https://en.cppreference.com/w/cpp/thread
 // Compile with: g++ -std=c++14 -O2 -pthread cpp_14/thread_examples.cpp -o bin/cpp14_thread && ./bin/cpp14_thread
 
 #include <chrono>
@@ -6,6 +7,8 @@
 #include <iostream>
 #include <thread>
 
+// Problem solved: represents asynchronous work and its result without manual thread bookkeeping.
+// Before C++14: code paired raw threads with shared result storage and ad hoc error propagation.
 // Tips for C++14 thread usage:
 // - Use std::async when a task's result is more important than managing a thread directly.
 // - std::launch::async requests that the task run asynchronously instead of being deferred.

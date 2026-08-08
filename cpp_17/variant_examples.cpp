@@ -1,10 +1,13 @@
 // C++17 std::variant examples
+// Reference: https://en.cppreference.com/w/cpp/utility/variant
 // Compile with: g++ -std=c++17 -O2 cpp_17/variant_examples.cpp -o bin/cpp17_variant && ./bin/cpp17_variant
 
 #include <iostream>
 #include <string>
 #include <variant>
 
+// Problem solved: represents a closed set of alternative types with compiler-checked visitation.
+// Before C++17: code used unions plus manual tags and unsafe casts.
 // Tips for std::variant usage:
 // - Use std::variant when the set of possible types is known at compile time.
 // - Prefer variant over std::any when alternatives are finite and should be checked by the compiler.

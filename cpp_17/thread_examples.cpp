@@ -1,4 +1,5 @@
 // C++17 thread examples
+// Reference: https://en.cppreference.com/w/cpp/thread
 // Compile with: g++ -std=c++17 -O2 -pthread cpp_17/thread_examples.cpp -o bin/cpp17_thread && ./bin/cpp17_thread
 
 #include <algorithm>
@@ -7,6 +8,8 @@
 #include <numeric>
 #include <vector>
 
+// Problem solved: expresses permitted algorithm parallelism through standard execution policies.
+// Before C++17: code manually partitioned work and managed worker threads for common algorithms.
 // Tips for C++17 thread usage:
 // - Execution policies let standard algorithms express whether work may run in parallel.
 // - Use std::execution::par only when the callable is safe for concurrent invocation.

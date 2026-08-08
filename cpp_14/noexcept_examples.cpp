@@ -1,10 +1,13 @@
 // C++14 noexcept examples
+// Reference: https://en.cppreference.com/w/cpp/language/noexcept_spec
 // Compile with: g++ -std=c++14 -O2 cpp_14/noexcept_examples.cpp -o bin/cpp14_noexcept && ./bin/cpp14_noexcept
 
 #include <iostream>
 #include <string>
 #include <utility>
 
+// Problem solved: lets generic move operations propagate accurate exception guarantees.
+// Before C++14: exception behavior was often duplicated manually or left undocumented.
 // Tips for C++14 noexcept usage:
 // - Use conditional noexcept to propagate a member or operation's exception guarantee.
 // - noexcept is useful for generic code that should preserve the properties of its types.

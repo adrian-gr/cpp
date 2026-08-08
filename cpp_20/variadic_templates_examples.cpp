@@ -1,9 +1,12 @@
 // C++20 variadic template examples
+// Reference: https://en.cppreference.com/w/cpp/language/parameter_pack
 // Compile with: g++ -std=c++20 -O2 cpp_20/variadic_templates_examples.cpp -o bin/cpp20_variadic && ./bin/cpp20_variadic
 
 #include <concepts>
 #include <iostream>
 
+// Problem solved: constrains every element of a parameter pack with readable requirements.
+// Before C++20: pack constraints used enable_if, detection idioms, or failed deep in instantiation.
 // Tips for C++20 variadic template usage:
 // - Constrain each pack element when the algorithm requires a specific operation.
 // - A requires expression can validate an entire parameter pack with a fold.

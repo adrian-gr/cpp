@@ -1,10 +1,13 @@
 // C++17 noexcept examples
+// Reference: https://en.cppreference.com/w/cpp/language/noexcept_spec
 // Compile with: g++ -std=c++17 -O2 cpp_17/noexcept_examples.cpp -o bin/cpp17_noexcept && ./bin/cpp17_noexcept
 
 #include <iostream>
 #include <type_traits>
 #include <utility>
 
+// Problem solved: lets code inspect whether a callable is non-throwing at compile time.
+// Before C++17: noexcept was harder to use in type traits and callable generic code.
 // Tips for C++17 noexcept usage:
 // - Since C++17, noexcept is part of a function type and can affect overloads and pointers.
 // - Use std::is_nothrow_invocable to inspect whether a callable can be invoked safely.

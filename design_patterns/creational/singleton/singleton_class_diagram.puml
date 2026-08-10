@@ -1,0 +1,21 @@
+@startuml Singleton
+
+class Logger {
+    -{static} instance_ : Logger
+    -mutex_ : mutex
+    -Logger()
+    +{static} instance() : Logger&
+    +log(message: string) : void
+}
+
+Logger --> Logger : returns\nsingle instance
+
+note right of Logger
+  Constructor is private;
+  instance() is the only
+  access point and lazily
+  creates the one instance
+  on first call.
+end note
+
+@enduml

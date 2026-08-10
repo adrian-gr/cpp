@@ -1,5 +1,5 @@
 // Builder pattern example
-// Compile with: g++ -std=c++20 -O2 design_patterns/creational/builder_examples.cpp -o bin/builder_example && ./bin/builder_example
+// Compile with: g++ -std=c++20 -O2 design_patterns/creational/builder/builder_examples.cpp -o bin/builder_example && ./bin/builder_example
 
 #include <iostream>
 #include <memory>

@@ -1,5 +1,5 @@
 // Factory Method pattern example
-// Compile with: g++ -std=c++20 -O2 design_patterns/creational/factory_method_examples.cpp -o bin/factory_method_example && ./bin/factory_method_example
+// Compile with: g++ -std=c++20 -O2 design_patterns/creational/factory_method/factory_method_examples.cpp -o bin/factory_method_example && ./bin/factory_method_example
 
 #include <iostream>
 #include <memory>

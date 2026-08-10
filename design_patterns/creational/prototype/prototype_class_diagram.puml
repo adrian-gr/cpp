@@ -1,0 +1,41 @@
+@startuml Prototype
+
+interface Enemy {
+    +clone() : unique_ptr<Enemy>
+    +describe() : void
+}
+
+class Goblin {
+    -health_ : int
+    -weapon_ : string
+    +clone() : unique_ptr<Enemy>
+    +describe() : void
+}
+
+class Dragon {
+    -health_ : int
+    -breath_ : string
+    +clone() : unique_ptr<Enemy>
+    +describe() : void
+}
+
+class EnemySpawner {
+    -prototypes_ : unordered_map<string, unique_ptr<Enemy>>
+    +registerPrototype(key: string, prototype: unique_ptr<Enemy>) : void
+    +spawn(key: string) : unique_ptr<Enemy>
+}
+
+Enemy <|.. Goblin
+Enemy <|.. Dragon
+
+EnemySpawner o-- Enemy : holds prototypes
+EnemySpawner ..> Enemy : clones
+
+note right of Goblin
+  clone() returns
+  make_unique<Goblin>(*this),
+  copying this instance's
+  own configured state.
+end note
+
+@enduml

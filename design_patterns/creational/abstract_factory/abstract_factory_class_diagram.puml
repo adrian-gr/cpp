@@ -1,0 +1,62 @@
+@startuml AbstractFactory
+
+interface Button {
+    +render() : void
+}
+
+interface Checkbox {
+    +render() : void
+}
+
+class LightButton {
+    +render() : void
+}
+
+class LightCheckbox {
+    +render() : void
+}
+
+class DarkButton {
+    +render() : void
+}
+
+class DarkCheckbox {
+    +render() : void
+}
+
+interface WidgetFactory {
+    +createButton() : unique_ptr<Button>
+    +createCheckbox() : unique_ptr<Checkbox>
+}
+
+class LightThemeFactory {
+    +createButton() : unique_ptr<Button>
+    +createCheckbox() : unique_ptr<Checkbox>
+}
+
+class DarkThemeFactory {
+    +createButton() : unique_ptr<Button>
+    +createCheckbox() : unique_ptr<Checkbox>
+}
+
+Button <|.. LightButton
+Button <|.. DarkButton
+Checkbox <|.. LightCheckbox
+Checkbox <|.. DarkCheckbox
+
+WidgetFactory <|.. LightThemeFactory
+WidgetFactory <|.. DarkThemeFactory
+
+LightThemeFactory ..> LightButton : creates
+LightThemeFactory ..> LightCheckbox : creates
+DarkThemeFactory ..> DarkButton : creates
+DarkThemeFactory ..> DarkCheckbox : creates
+
+note right of WidgetFactory
+  Abstract Factory: one call
+  produces a whole family of
+  mutually-compatible products
+  (button + checkbox per theme).
+end note
+
+@enduml

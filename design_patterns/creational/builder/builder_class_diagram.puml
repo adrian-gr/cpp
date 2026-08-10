@@ -1,0 +1,54 @@
+@startuml Builder
+
+class Burger {
+    -bun_ : string
+    -patty_ : string
+    -toppings_ : string
+    +setBun(bun: string) : void
+    +setPatty(patty: string) : void
+    +addTopping(topping: string) : void
+    +describe() : void
+}
+
+interface BurgerBuilder {
+    +buildBun() : void
+    +buildPatty() : void
+    +buildToppings() : void
+    +release() : unique_ptr<Burger>
+}
+
+class ClassicBurgerBuilder {
+    -burger_ : unique_ptr<Burger>
+    +buildBun() : void
+    +buildPatty() : void
+    +buildToppings() : void
+    +release() : unique_ptr<Burger>
+}
+
+class VeggieBurgerBuilder {
+    -burger_ : unique_ptr<Burger>
+    +buildBun() : void
+    +buildPatty() : void
+    +buildToppings() : void
+    +release() : unique_ptr<Burger>
+}
+
+class Chef {
+    +make(builder: BurgerBuilder&) : unique_ptr<Burger>
+}
+
+BurgerBuilder <|.. ClassicBurgerBuilder
+BurgerBuilder <|.. VeggieBurgerBuilder
+
+Chef ..> BurgerBuilder : directs
+ClassicBurgerBuilder ..> Burger : builds
+VeggieBurgerBuilder ..> Burger : builds
+
+note right of Chef
+  Director: runs the fixed
+  buildBun -> buildPatty ->
+  buildToppings -> release
+  sequence against any builder.
+end note
+
+@enduml

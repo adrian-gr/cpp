@@ -1,0 +1,46 @@
+@startuml State
+
+class VendingMachine {
+    -state_ : unique_ptr<VendingState>
+    +insertCoin() : void
+    +selectItem() : void
+    +setState(newState: unique_ptr<VendingState>) : void
+}
+
+interface VendingState {
+    +insertCoin(machine: VendingMachine&) : void
+    +selectItem(machine: VendingMachine&) : void
+    +name() : string
+}
+
+class IdleState {
+    +insertCoin(machine: VendingMachine&) : void
+    +selectItem(machine: VendingMachine&) : void
+}
+
+class HasCoinState {
+    +insertCoin(machine: VendingMachine&) : void
+    +selectItem(machine: VendingMachine&) : void
+}
+
+class DispensingState {
+    +insertCoin(machine: VendingMachine&) : void
+    +selectItem(machine: VendingMachine&) : void
+}
+
+VendingMachine o-- VendingState : current state
+VendingState <|.. IdleState
+VendingState <|.. HasCoinState
+VendingState <|.. DispensingState
+
+IdleState ..> HasCoinState : transitions to
+HasCoinState ..> DispensingState : transitions to
+
+note right of VendingMachine
+  Context delegates insertCoin()/
+  selectItem() to state_; each
+  concrete state decides the
+  next state via setState().
+end note
+
+@enduml

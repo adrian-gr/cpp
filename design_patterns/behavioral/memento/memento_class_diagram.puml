@@ -1,0 +1,31 @@
+@startuml Memento
+
+class EditorMemento {
+    -content_ : string
+}
+
+class TextEditor {
+    -content_ : string
+    +type(text: string) : void
+    +content() : const string&
+    +save() : unique_ptr<EditorMemento>
+    +restore(memento: EditorMemento&) : void
+}
+
+class History {
+    -mementos_ : vector<unique_ptr<EditorMemento>>
+    +push(memento: unique_ptr<EditorMemento>) : void
+    +pop() : unique_ptr<EditorMemento>
+}
+
+TextEditor ..> EditorMemento : creates & reads\n(friend access)
+History o-- EditorMemento : stores, opaque
+
+note right of EditorMemento
+  content_ is private; only
+  TextEditor (declared a friend)
+  can read or write it.
+  History only moves it around.
+end note
+
+@enduml

@@ -1,0 +1,45 @@
+@startuml ChainOfResponsibility
+
+enum LogLevel {
+    Info
+    Warning
+    Error
+}
+
+abstract class LogHandler {
+    -next_ : shared_ptr<LogHandler>
+    +setNext(next: shared_ptr<LogHandler>) : void
+    +handle(level: LogLevel, message: string) : void
+    #{abstract} canHandle(level: LogLevel) : bool
+    #{abstract} process(message: string) : void
+}
+
+class ConsoleHandler {
+    #canHandle(level: LogLevel) : bool
+    #process(message: string) : void
+}
+
+class EmailHandler {
+    #canHandle(level: LogLevel) : bool
+    #process(message: string) : void
+}
+
+class PagerHandler {
+    #canHandle(level: LogLevel) : bool
+    #process(message: string) : void
+}
+
+LogHandler <|-- ConsoleHandler
+LogHandler <|-- EmailHandler
+LogHandler <|-- PagerHandler
+
+LogHandler -> LogHandler : next_ (forwards\nunhandled requests)
+
+note right of LogHandler
+  handle() is the template
+  method: checks canHandle(),
+  otherwise forwards to next_
+  if a successor is set.
+end note
+
+@enduml

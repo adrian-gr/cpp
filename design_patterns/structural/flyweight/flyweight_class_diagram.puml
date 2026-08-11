@@ -1,0 +1,33 @@
+@startuml Flyweight
+
+class GlyphStyleFactory {
+    -cache_ : unordered_map<string, shared_ptr<GlyphStyle>>
+    +getStyle(font: string, size: int) : shared_ptr<GlyphStyle>
+}
+
+class GlyphStyle {
+    -font_ : string
+    -size_ : int
+    +render(character: char, x: int, y: int) : void
+}
+
+class Character {
+    +symbol : char
+    +x : int
+    +y : int
+    +style : shared_ptr<GlyphStyle>
+    +render() : void
+}
+
+GlyphStyleFactory ..> GlyphStyle : creates & caches
+Character o-- GlyphStyle : shares (intrinsic)
+
+note right of GlyphStyle
+  Intrinsic state only:
+  font_, size_. Extrinsic
+  state (symbol, x, y) is
+  passed into render(),
+  never stored here.
+end note
+
+@enduml

@@ -1,0 +1,38 @@
+@startuml Iterator
+
+interface "Iterator<T>" as Iterator {
+    +hasNext() : bool
+    +next() : const T&
+}
+
+interface "Collection<T>" as Collection {
+    +createIterator() : unique_ptr<Iterator<T>>
+}
+
+class PlaylistIterator {
+    -tracks_ : const vector<string>&
+    -index_ : size_t
+    +hasNext() : bool
+    +next() : const string&
+}
+
+class Playlist {
+    -tracks_ : vector<string>
+    +addTrack(track: string) : void
+    +createIterator() : unique_ptr<Iterator<string>>
+}
+
+Iterator <|.. PlaylistIterator
+Collection <|.. Playlist
+
+Playlist ..> PlaylistIterator : creates
+PlaylistIterator o-- Playlist : iterates over
+
+note right of Playlist
+  createIterator() hides the
+  internal vector<string> —
+  clients only ever see the
+  Iterator<T> interface.
+end note
+
+@enduml

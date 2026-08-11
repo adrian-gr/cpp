@@ -1,0 +1,39 @@
+@startuml Command
+
+interface Command {
+    +execute() : void
+    +undo() : void
+}
+
+class InsertTextCommand {
+    -document_ : TextDocument&
+    -text_ : string
+    +execute() : void
+    +undo() : void
+}
+
+class TextDocument {
+    -content_ : string
+    +insert(text: string) : void
+    +removeLast(count: size_t) : void
+    +show() : void
+}
+
+class CommandHistory {
+    -history_ : vector<unique_ptr<Command>>
+    +execute(command: unique_ptr<Command>) : void
+    +undoLast() : void
+}
+
+Command <|.. InsertTextCommand
+InsertTextCommand ..> TextDocument : acts on (receiver)
+CommandHistory o-- Command : holds & executes
+
+note right of CommandHistory
+  Invoker: calls execute()/undo()
+  on whatever Command it holds,
+  without knowing the concrete
+  command or its receiver.
+end note
+
+@enduml

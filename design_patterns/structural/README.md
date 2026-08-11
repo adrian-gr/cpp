@@ -9,4 +9,5 @@ Planned examples include:
 - Composite
 - Decorator
 - Facade
+- Flyweight
 - Proxy

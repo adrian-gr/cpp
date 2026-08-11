@@ -7,6 +7,8 @@ Planned examples include:
 - Chain of Responsibility
 - Command
 - Iterator
+- Mediator
+- Memento
 - Observer
 - State
 - Strategy

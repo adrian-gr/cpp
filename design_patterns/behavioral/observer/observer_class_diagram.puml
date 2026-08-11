@@ -1,0 +1,40 @@
+@startuml Observer
+
+interface Observer {
+    +onTemperatureChanged(celsius: double) : void
+}
+
+class DisplayPanel {
+    -label_ : string
+    +onTemperatureChanged(celsius: double) : void
+}
+
+class AlarmSystem {
+    -threshold_ : double
+    +onTemperatureChanged(celsius: double) : void
+}
+
+class TemperatureSensor {
+    -temperature_ : double
+    -observers_ : vector<Observer*>
+    +subscribe(observer: Observer*) : void
+    +unsubscribe(observer: Observer*) : void
+    +setTemperature(celsius: double) : void
+    -notify() : void
+}
+
+Observer <|.. DisplayPanel
+Observer <|.. AlarmSystem
+
+TemperatureSensor o-- Observer : notifies
+TemperatureSensor ..> Observer : calls onTemperatureChanged()
+
+note right of TemperatureSensor
+  Subject: holds a list of
+  observers and calls
+  onTemperatureChanged() on
+  each whenever setTemperature()
+  changes its state.
+end note
+
+@enduml

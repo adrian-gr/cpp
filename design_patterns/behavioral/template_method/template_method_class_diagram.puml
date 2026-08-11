@@ -1,0 +1,34 @@
+@startuml TemplateMethod
+
+abstract class DataExporter {
+    +exportData() : void
+    #{abstract} writeHeader() : void
+    #{abstract} writeBody() : void
+    #writeFooter() : void
+    -openTarget() : void
+    -closeTarget() : void
+}
+
+class CsvExporter {
+    #writeHeader() : void
+    #writeBody() : void
+}
+
+class JsonExporter {
+    #writeHeader() : void
+    #writeBody() : void
+    #writeFooter() : void
+}
+
+DataExporter <|-- CsvExporter
+DataExporter <|-- JsonExporter
+
+note right of DataExporter
+  exportData() is the template
+  method: its step sequence is
+  fixed. writeHeader()/writeBody()
+  are abstract steps; writeFooter()
+  is an optional hook.
+end note
+
+@enduml

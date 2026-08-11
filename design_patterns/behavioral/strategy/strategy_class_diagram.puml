@@ -1,0 +1,38 @@
+@startuml Strategy
+
+class Checkout {
+    -strategy_ : unique_ptr<PricingStrategy>
+    +setStrategy(strategy: unique_ptr<PricingStrategy>) : void
+    +total(orders: vector<Order>) : double
+}
+
+interface PricingStrategy {
+    +computeTotal(orders: vector<Order>) : double
+}
+
+class RegularPricing {
+    +computeTotal(orders: vector<Order>) : double
+}
+
+class BulkDiscountPricing {
+    +computeTotal(orders: vector<Order>) : double
+}
+
+class LoyaltyMemberPricing {
+    +computeTotal(orders: vector<Order>) : double
+}
+
+Checkout o-- PricingStrategy : current strategy
+PricingStrategy <|.. RegularPricing
+PricingStrategy <|.. BulkDiscountPricing
+PricingStrategy <|.. LoyaltyMemberPricing
+
+note right of Checkout
+  Context delegates
+  computeTotal() to whichever
+  strategy it holds; client
+  chooses the strategy via
+  setStrategy(), from outside.
+end note
+
+@enduml

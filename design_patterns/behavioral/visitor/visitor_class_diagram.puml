@@ -1,0 +1,49 @@
+@startuml Visitor
+
+interface Shape {
+    +accept(visitor: ShapeVisitor&) : void
+}
+
+class Circle {
+    -radius_ : double
+    +accept(visitor: ShapeVisitor&) : void
+}
+
+class Square {
+    -side_ : double
+    +accept(visitor: ShapeVisitor&) : void
+}
+
+interface ShapeVisitor {
+    +visit(circle: Circle&) : void
+    +visit(square: Square&) : void
+}
+
+class AreaVisitor {
+    +visit(circle: Circle&) : void
+    +visit(square: Square&) : void
+}
+
+class DescribeVisitor {
+    +visit(circle: Circle&) : void
+    +visit(square: Square&) : void
+}
+
+Shape <|.. Circle
+Shape <|.. Square
+ShapeVisitor <|.. AreaVisitor
+ShapeVisitor <|.. DescribeVisitor
+
+Circle ..> ShapeVisitor : accept() calls visit(*this)
+Square ..> ShapeVisitor : accept() calls visit(*this)
+
+note right of ShapeVisitor
+  Double dispatch: accept()
+  virtually dispatches on the
+  element's concrete type,
+  then visit() overload
+  resolution picks the right
+  operation for that type.
+end note
+
+@enduml

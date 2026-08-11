@@ -1,0 +1,31 @@
+@startuml Mediator
+
+interface ChatMediator {
+    +sendMessage(message: string, sender: User*) : void
+}
+
+class User {
+    -mediator_ : ChatMediator&
+    -name_ : string
+    +send(message: string) : void
+    +receive(sender: string, message: string) : void
+}
+
+class ChatRoom {
+    -users_ : vector<User*>
+    +addUser(user: User*) : void
+    +sendMessage(message: string, sender: User*) : void
+}
+
+ChatMediator <|.. ChatRoom
+User --> ChatMediator : notifies via send()
+ChatRoom o-- User : coordinates
+
+note right of ChatRoom
+  Concrete mediator: routes each
+  message to every other User
+  without any User referencing
+  another User directly.
+end note
+
+@enduml

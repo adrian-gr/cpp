@@ -1,0 +1,40 @@
+@startuml Facade
+
+class HomeTheaterFacade {
+    -amp_ : Amplifier&
+    -projector_ : Projector&
+    -player_ : StreamingPlayer&
+    +watchMovie(title: string) : void
+    +endMovie() : void
+}
+
+class Amplifier {
+    +on() : void
+    +setVolume(level: int) : void
+    +off() : void
+}
+
+class Projector {
+    +on() : void
+    +setInput(source: string) : void
+    +off() : void
+}
+
+class StreamingPlayer {
+    +on() : void
+    +play(title: string) : void
+    +off() : void
+}
+
+HomeTheaterFacade ..> Amplifier : coordinates
+HomeTheaterFacade ..> Projector : coordinates
+HomeTheaterFacade ..> StreamingPlayer : coordinates
+
+note right of HomeTheaterFacade
+  Client calls watchMovie()/
+  endMovie() only. Facade
+  sequences the low-level
+  subsystem calls internally.
+end note
+
+@enduml

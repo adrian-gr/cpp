@@ -1,0 +1,30 @@
+@startuml Proxy
+
+interface Image {
+    +display() : void
+}
+
+class HighResImage {
+    -filename_ : string
+    +display() : void
+}
+
+class ImageProxy {
+    -filename_ : string
+    -realImage_ : unique_ptr<HighResImage>
+    +display() : void
+}
+
+Image <|.. HighResImage
+Image <|.. ImageProxy
+ImageProxy ..> HighResImage : creates lazily & delegates
+
+note right of ImageProxy
+  display() creates
+  HighResImage only on first
+  call, then forwards to it —
+  clients can't tell they're
+  holding a proxy.
+end note
+
+@enduml

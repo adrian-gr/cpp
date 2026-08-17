@@ -1,0 +1,40 @@
+@startuml Decorator
+
+interface Beverage {
+    +description() : string
+    +cost() : double
+}
+
+class Espresso {
+    +description() : string
+    +cost() : double
+}
+
+abstract class BeverageDecorator {
+    #beverage_ : unique_ptr<Beverage>
+}
+
+class MilkDecorator {
+    +description() : string
+    +cost() : double
+}
+
+class CaramelDecorator {
+    +description() : string
+    +cost() : double
+}
+
+Beverage <|.. Espresso
+Beverage <|.. BeverageDecorator
+BeverageDecorator <|-- MilkDecorator
+BeverageDecorator <|-- CaramelDecorator
+BeverageDecorator o-- Beverage : wraps
+
+note right of BeverageDecorator
+  Implements the same interface
+  it wraps, so decorators and
+  undecorated beverages are
+  interchangeable to the client.
+end note
+
+@enduml

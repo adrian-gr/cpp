@@ -1,0 +1,48 @@
+@startuml Bridge
+
+abstract class Shape {
+    #renderer_ : shared_ptr<Renderer>
+    +{abstract} draw() : void
+}
+
+class Circle {
+    -radius_ : double
+    +draw() : void
+}
+
+class Square {
+    -side_ : double
+    +draw() : void
+}
+
+interface Renderer {
+    +renderCircle(radius: double) : void
+    +renderSquare(side: double) : void
+}
+
+class VectorRenderer {
+    +renderCircle(radius: double) : void
+    +renderSquare(side: double) : void
+}
+
+class RasterRenderer {
+    +renderCircle(radius: double) : void
+    +renderSquare(side: double) : void
+}
+
+Shape <|-- Circle
+Shape <|-- Square
+Renderer <|.. VectorRenderer
+Renderer <|.. RasterRenderer
+
+Shape o-- Renderer : bridges to
+
+note right of Shape
+  Two independent hierarchies:
+  Shape (abstraction) holds a
+  Renderer (implementation)
+  by composition, not
+  inheritance.
+end note
+
+@enduml

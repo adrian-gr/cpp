@@ -1,0 +1,35 @@
+@startuml Composite
+
+interface FileSystemComponent {
+    +display(indent: int) : void
+    +size() : long
+}
+
+class File {
+    -name_ : string
+    -sizeInBytes_ : long
+    +display(indent: int) : void
+    +size() : long
+}
+
+class Directory {
+    -name_ : string
+    -children_ : vector<shared_ptr<FileSystemComponent>>
+    +add(component: shared_ptr<FileSystemComponent>) : void
+    +display(indent: int) : void
+    +size() : long
+}
+
+FileSystemComponent <|.. File
+FileSystemComponent <|.. Directory
+Directory o-- FileSystemComponent : children
+
+note right of Directory
+  size() recurses over
+  children_, summing each
+  child's size() regardless
+  of whether it's a File
+  or another Directory.
+end note
+
+@enduml
